@@ -1,0 +1,51 @@
+# action.yml
+name: 'Helm Push'
+description: 'Pushes helm charts to a ChartMuseum or OCI compatible registry.'
+branding:
+  color: 'green'
+  icon: 'upload-cloud'
+inputs:
+  access-token:
+    description: 'API Token with read/write permissions to the helm registry'
+    required: false
+    default: ''
+  username:
+    description: 'Username read/write permissions to the helm registry'
+    required: false
+    default: ''
+  password:
+    description: 'Password with read/write permissions to the helm registry'
+    required: false
+    default: ''
+  registry-url:
+    description: 'Repository url'
+    required: true
+    default: ''
+  charts-dir:
+    description: 'Relative path to charts dir'
+    required: false
+    default: 'charts'
+  force:
+    description: 'Whether or not to override existing chart with same version'
+    required: false
+    default: 'false'
+  linting:
+    description: 'Whether or not to lint helm charts'
+    required: false
+    default: 'false'
+  useOCIRegistry:
+    description: 'If publishing to big cloud registries, utilizing OCI container spec for helm packages, set to true'
+    required: false
+    default: 'false'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    CHARTS_DIR: ${{ inputs.charts-dir }}
+    FORCE: ${{ inputs.force }}
+    LINTING: ${{ inputs.linting }}
+    REGISTRY_URL: ${{ inputs.registry-url }}
+    REGISTRY_ACCESS_TOKEN: ${{ inputs.access-token }}
+    REGISTRY_USERNAME: ${{ inputs.username }}
+    REGISTRY_PASSWORD: ${{ inputs.password }}
+    USE_OCI_REGISTRY: ${{ inputs.useOCIRegistry }}
