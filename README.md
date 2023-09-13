@@ -42,5 +42,5 @@ steps:
 
 ## License
 
-This project is distributed under the [Apache2.0 license](LICENSE.md).
+This project is distributed under the [MIT license](LICENSE).
 
